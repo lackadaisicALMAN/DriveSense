@@ -1,0 +1,8 @@
+ultralytics>=8.3.0
+gradio>=4.44.0
+opencv-python>=4.9.0
+numpy>=1.26.0
+# ffmpeg must also be installed at the OS level:
+#   Ubuntu/Colab:  apt-get install -y ffmpeg
+#   Windows:       https://ffmpeg.org/download.html  (add to PATH)
+#   macOS:         brew install ffmpeg
