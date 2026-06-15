@@ -32,63 +32,81 @@ DriveSense AI is a computer-vision-based driving analysis tool that takes dashca
 ## File Structure
 
 ```
-drivesense/
-├── app.py           # Gradio UI + pipeline orchestration
-├── detector.py      # All CV & YOLO logic (detection, distance, lanes, lights)
-├── scorer.py        # Score aggregation, report generation
-├── requirements.txt
-└── README.md
+DriveSense/
+├── app.py                  # Gradio UI dashboard & pipeline orchestrator
+├── detector.py             # Computer Vision engine (YOLO, lanes, lights, distances, TTC)
+├── scorer.py               # Aggregates scores, runs rules, builds reports & timelines
+├── user_profile.py         # Manages multiple vehicles & saved historical runs
+├── analytics.py            # Generates telemetry plots (Following Distance vs Safe Distance)
+├── DriveSense_AI.ipynb     # Jupyter Notebook for running on Google Colab
+├── requirements.txt        # Python package dependencies
+└── README.md               # Project documentation
 ```
 
 ---
 
 ## Where to Run
 
-### ✅ Option A: VS Code / Local Machine (Recommended for submission)
+### ✅ Option A: VS Code / Local Machine (Recommended for local review)
 
-Best for: final demo, stable URLs, reproducible results.
+Best for: development, customization, and local evaluation.
 
-```bash
-# 1. Create and activate a virtual environment
-python -m venv venv
-source venv/bin/activate          # Windows: venv\Scripts\activate
+1. **Open the project folder** in VS Code.
+2. **Open a terminal** in VS Code.
+3. **Set up a Virtual Environment** and install dependencies:
+   ```bash
+   # Create a virtual environment
+   python -m venv .venv
 
-# 2. Install dependencies
-pip install -r requirements.txt
+   # Activate the virtual environment
+   # On Windows (PowerShell):
+   .venv\Scripts\Activate.ps1
+   # On macOS/Linux:
+   source .venv/bin/activate
 
-# 3. Run
-python app.py
-```
+   # Install dependencies
+   pip install -r requirements.txt
+   ```
+4. **Run the application**:
+   In VS Code, open [app.py](file:///c:/SE/DriveSense/app.py) and run it, or execute this in your terminal:
+   ```bash
+   python app.py
+   ```
+5. **Accessing the UI**:
+   - **Local URL**: Once started, the console will print `Running on local URL: http://localhost:7860`. You can open this in your browser to run locally.
+   - **Public URL**: Because `share=True` is enabled in `app.py`, Gradio will also print a **temporary public share link** (e.g., `Running on public URL: https://xxxxxxxxxxxxxx.gradio.live`). Anyone can access this link from any device for up to 72 hours while your local terminal remains running.
 
-Open `http://localhost:7860` in your browser.  
-A public Gradio share URL is also printed — paste this as your submission URL.
-
-**GPU (recommended):** If you have an NVIDIA GPU, install the CUDA-compatible torch before the others:
-```bash
-pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
-pip install -r requirements.txt
-python app.py
-```
+*Note: For GPU execution locally, make sure you have PyTorch installed with CUDA support before running `pip install -r requirements.txt`.*
 
 ---
 
-### ✅ Option B: Google Colab
+### ✅ Option B: Google Colab (Recommended for Faster Processing / No GPU)
 
-Use this if you don't have a GPU locally. Colab's T4 GPU is free and significantly faster.
+Since YOLO model inference and video writing are processor-heavy, running the project on a standard CPU can take up to 10 minutes for longer videos. Google Colab provides a free **T4 GPU** which accelerates processing to near real-time (under a minute).
 
-```python
-# Cell 1 — install
-!pip install ultralytics gradio opencv-python-headless numpy
+#### Step-by-Step Google Colab Import & Execution:
 
-# Cell 2 — upload files
-from google.colab import files
-files.upload()   # upload app.py, detector.py, scorer.py
-
-# Cell 3 — run
-!python app.py
-```
-
-Colab will print a `gradio.live` public URL automatically (because `share=True` is set).
+1. **Open Google Colab**:
+   Go to [colab.research.google.com](https://colab.research.google.com).
+2. **Upload the Notebook**:
+   - In the popup window, select the **Upload** tab.
+   - Choose the [DriveSense_AI.ipynb](file:///c:/SE/DriveSense/DriveSense_AI.ipynb) file from this project folder.
+3. **Change Runtime to GPU (CRITICAL for speed)**:
+   - In the Colab top menu, go to **Runtime** → **Change runtime type**.
+   - In the **Hardware accelerator** dropdown, select **T4 GPU** (do not select CPU as it will be slow).
+   - Click **Save**.
+4. **Execute the Notebook**:
+   - Go to **Runtime** → **Run all** (or press `Ctrl + F9`).
+   - The notebook cells will execute sequentially:
+     - **Cell 1**: Installs system-level `ffmpeg` (required for output video encoding).
+     - **Cell 2**: Installs required python libraries (`ultralytics`, `gradio`, etc.).
+     - **Cells 3–7**: Automatically write `detector.py`, `scorer.py`, `user_profile.py`, `analytics.py`, and `app.py` directly into the Colab environment using `%%writefile`.
+     - **Cell 8**: Verifies all source files were successfully generated.
+     - **Cell 9**: Runs the Gradio app via `!python app.py`.
+5. **Open the Dashboard**:
+   - Scroll down to the output of the final cell.
+   - Look for the line: `Running on public URL: https://xxxxxxxxxxxxxx.gradio.live`.
+   - Click this public link. The complete dark-themed DriveSense AI dashboard will open in a new tab, running on Colab's fast GPU back-end!
 
 **Note:** Colab sessions expire after ~12 hours. For a stable submission URL use VS Code + a persistent machine or Hugging Face Spaces.
 

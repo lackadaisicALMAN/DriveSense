@@ -693,7 +693,7 @@ label span {
 # ─────────────────────────────────────────────
 #  GRADIO APPLICATION LAYOUT
 # ─────────────────────────────────────────────
-with gr.Blocks(title="DriveSense AI Dashboard") as demo:
+with gr.Blocks(css=CSS, title="DriveSense AI Dashboard") as demo:
 
     # ── Header ──────────────────────────────────
     gr.HTML("""
@@ -1003,5 +1003,4 @@ if __name__ == "__main__":
         server_name="0.0.0.0",
         server_port=7860,
         show_error=True,
-        css=CSS,
     )
