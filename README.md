@@ -94,12 +94,21 @@ Colab will print a `gradio.live` public URL automatically (because `share=True` 
 
 ---
 
-## Deploying to Hugging Face Spaces (optional — permanent URL)
+## Deploying to Hugging Face Spaces (Permanent Submission Link)
 
-1. Create a free account at huggingface.co
-2. New Space → Gradio SDK
-3. Upload `app.py`, `detector.py`, `scorer.py`, `requirements.txt`
-4. Your permanent URL: `https://huggingface.co/spaces/YOUR_USERNAME/drivesense`
+Hugging Face Spaces provides a free, permanent public URL for your Gradio app (e.g., `https://huggingface.co/spaces/YOUR_USERNAME/drivesense`). This is ideal for final project submission.
+
+1. **Create Account**: Register a free account at [huggingface.co](https://huggingface.co).
+2. **Create Space**: Click **New Space** → name it `drivesense` → select **Gradio** as the SDK.
+3. **Upload Files**: Upload the following files to your space repository:
+   - `app.py`
+   - `detector.py`
+   - `scorer.py`
+   - `user_profile.py`
+   - `analytics.py`
+   - `requirements.txt`
+4. **App Build**: Hugging Face will automatically download dependencies and start the app.
+5. **GPU Acceleration (Optional)**: For near real-time processing, go to the Space **Settings** and select the **T4 Small GPU** (free/affordable tier) to accelerate YOLO inferences.
 
 ---
 
