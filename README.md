@@ -156,7 +156,7 @@ d = (v × 1.5 + v² / (2a)) × 1.2   # metres
 - Distance estimation uses a fixed focal constant calibrated for ~1080p 60° HFOV dashcams. For fisheye or wide-angle lenses, tune `FOCAL_CONST` in `detector.py`.
 - Lane detection works best on clearly marked roads in daylight. Poor marking, rain, or night conditions reduce accuracy.
 - Traffic light colour classification can fail if the light is very small in frame or heavily overexposed.
-- Speed is not measured directly (requires GPS telemetry); speed limit is user-supplied.
+- Speed is not measured directly (requires GPS telemetry); speed limit is given by user.
 
 ---
 
